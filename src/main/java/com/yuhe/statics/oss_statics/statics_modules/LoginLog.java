@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 
 import com.yuhe.statics.oss_statics.db.ServerDB;
 import com.yuhe.statics.oss_statics.db.UserInfoDB;
@@ -24,7 +23,6 @@ import net.sf.json.JSONObject;
 public class LoginLog extends AbstractStaticsModule {
 	// 需要提取的列，注意要跟数据库中对应，前面的HostID和后面的时间都不要在这里填
 	private static final String[] LOG_COLS = { "Uid", "Name", "Urs", "Level", "Ip", "PhoneInfo", "SDKInfo" };
-	public static Logger logger = Logger.getLogger(LoginLog.class);
 
 	@Override
 	public boolean execute(List<String> logList) {

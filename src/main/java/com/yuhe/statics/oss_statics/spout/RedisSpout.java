@@ -4,22 +4,24 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.storm.spout.SpoutOutputCollector;
+import org.apache.storm.task.TopologyContext;
+import org.apache.storm.topology.OutputFieldsDeclarer;
+import org.apache.storm.topology.base.BaseRichSpout;
+import org.apache.storm.tuple.Fields;
+import org.apache.storm.tuple.Values;
+
 import com.yuhe.statics.oss_statics.statics_modules.AbstractStaticsModule;
 import com.yuhe.statics.oss_statics.statics_modules.StaticsIndexes;
 
-import backtype.storm.spout.SpoutOutputCollector;
-import backtype.storm.task.TopologyContext;
-import backtype.storm.topology.OutputFieldsDeclarer;
-import backtype.storm.topology.base.BaseRichSpout;
-import backtype.storm.tuple.Fields;
-import backtype.storm.tuple.Values;
+
 import redis.clients.jedis.Jedis;
 
-import org.apache.log4j.Logger;
+
 
 public class RedisSpout extends BaseRichSpout {
+	private static final long serialVersionUID = 1L;
 	private SpoutOutputCollector collector;
-	public static Logger logger = Logger.getLogger(RedisSpout.class);
 	private static Jedis jedis = new Jedis("192.168.1.97", 6379);
 	// lua脚本，用于在redis中批量获取队列内容
 	private String LUA_SCRIPT = "local Result = {} local Length = redis.call('LLEN',KEYS[1]) "
@@ -29,7 +31,7 @@ public class RedisSpout extends BaseRichSpout {
 	public void open(Map conf, TopologyContext context, SpoutOutputCollector collector) {
 		this.collector = collector;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public void nextTuple() {
 		// get data from redis
@@ -38,9 +40,10 @@ public class RedisSpout extends BaseRichSpout {
 		while (it.hasNext()) {
 			String staticsIndex = (String) it.next();
 			List<String> logList = (List<String>) jedis.eval(LUA_SCRIPT, 1, staticsIndex);
-			collector.emit(new Values(staticsIndex, logList));
+			if (logList.size() > 0)
+				collector.emit(new Values(staticsIndex, logList));
 		}
-		
+
 	}
 
 	public void declareOutputFields(OutputFieldsDeclarer declarer) {

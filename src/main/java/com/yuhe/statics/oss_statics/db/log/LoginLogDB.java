@@ -18,7 +18,7 @@ import com.yuhe.statics.oss_statics.utils.DateUtils;
 
 public class LoginLogDB extends AbstractDB{
 	
-	private static final String[] LOG_COLS = {"HostID", "Uid", "Urs", "Ip", "Name", "Time"};
+	private static final String[] LOG_COLS = {"HostID", "Uid", "Name", "Urs", "Level", "Ip", "PhoneInfo", "Time"};
 	
 	@Override
 	public ResultSet query(Map<String, String> options) {

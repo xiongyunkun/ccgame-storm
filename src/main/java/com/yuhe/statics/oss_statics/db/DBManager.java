@@ -34,6 +34,7 @@ public class DBManager {
 				conn.close();
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error("初始化连接池失败：" + e);
 		}
 	}

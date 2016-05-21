@@ -60,7 +60,7 @@ public class ServerDB {
 			long nowTime = System.currentTimeMillis();
 			if(nowTime - SDKUpdateTime > BENCH_DIFF || SDK_MAP.size() == 0){
 				//需要更新
-				String sql = "select * from smcs.tblPlatform";
+				String sql = "select * from smcs.tblPlatform where Flag = 'true'";
 				Connection conn = DBManager.getConn();
 				ResultSet results = DBManager.query(conn, sql);
 				try {

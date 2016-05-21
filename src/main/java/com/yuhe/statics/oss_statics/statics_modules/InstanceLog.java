@@ -17,6 +17,13 @@ public class InstanceLog extends AbstractStaticsModule {
 
 	private static final String[] LOG_COLS = { "Uid", "Name", "Urs", "StageId", "StageType", "Times", "NotPassEvent",
 			"Bonus", "IsFinish", "CardList", "IsFirstWin", "IsFirstEnter", "SDKInfo" };
+	private static final Map<String, String> DEFAULT_VALUES = new HashMap<String, String>() {
+		private static final long serialVersionUID = 1L;
+		{
+			put("IsFirstEnter", "0");
+			put("IsFirstEnter", "0");
+		}
+	};
 
 	@Override
 	public boolean execute(List<String> logList) {
@@ -34,7 +41,7 @@ public class InstanceLog extends AbstractStaticsModule {
 					map.put("Time", time);
 					String sdkInfo = "";
 					for (String col : LOG_COLS) {
-						String value = RegUtils.getLogValue(message, col, "");
+						String value = RegUtils.getLogValue(message, col, DEFAULT_VALUES.getOrDefault(col, ""));
 						map.put(col, value);
 						if (col.equals("SDKInfo")) {
 							sdkInfo = value;

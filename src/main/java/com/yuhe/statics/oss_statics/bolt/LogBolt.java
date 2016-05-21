@@ -3,16 +3,15 @@ package com.yuhe.statics.oss_statics.bolt;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.storm.topology.BasicOutputCollector;
+import org.apache.storm.topology.OutputFieldsDeclarer;
+import org.apache.storm.topology.base.BaseBasicBolt;
+import org.apache.storm.tuple.Fields;
+import org.apache.storm.tuple.Tuple;
 
 import com.yuhe.statics.oss_statics.statics_modules.AbstractStaticsModule;
 import com.yuhe.statics.oss_statics.statics_modules.StaticsIndexes;
 
-import backtype.storm.topology.BasicOutputCollector;
-import backtype.storm.topology.OutputFieldsDeclarer;
-import backtype.storm.topology.base.BaseBasicBolt;
-import backtype.storm.tuple.Fields;
-import backtype.storm.tuple.Tuple;
 
 
 public class LogBolt extends BaseBasicBolt {
@@ -21,7 +20,6 @@ public class LogBolt extends BaseBasicBolt {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static Logger logger = Logger.getLogger(LogBolt.class);
 
 	/**
 	 * 接收log日志数据，并且判断日志类型，采用对应的处理类型记录日志

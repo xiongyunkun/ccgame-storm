@@ -40,6 +40,7 @@ com\yuhe\statics\oss_statics\db\log\TaskLogDB.class
 com\yuhe\statics\oss_statics\db\log\AddPlayerLogDB.class
 com\yuhe\statics\oss_statics\statics_modules\AddPlayerLog.class
 com\yuhe\statics\oss_statics\db\log\PowerLogDB.class
+com\yuhe\statics\oss_statics\statics_modules\InstanceLog$1.class
 com\yuhe\statics\oss_statics\db\log\ArenaLogDB.class
 com\yuhe\statics\oss_statics\statics_modules\Online.class
 com\yuhe\statics\oss_statics\bolt\LogBolt.class
