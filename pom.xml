@@ -2,9 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.yuhe.statics</groupId>
+	<groupId>com.yuhe.mgame</groupId>
 	<artifactId>oss-statics</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
 	<name>oss-statics</name>
@@ -25,19 +25,41 @@
 			<artifactId>storm-core</artifactId>
 			<version>1.0.0</version>
 			<scope>provided</scope>
+
 		</dependency>
 		<dependency>
-			<groupId>jedis</groupId>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka_2.9.2</artifactId>
+			<version>0.8.1.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.zookeeper</groupId>
+					<artifactId>zookeeper</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.storm</groupId>
+			<artifactId>storm-kafka</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 			<version>2.8.0</version>
 		</dependency>
 		<dependency>
-			<groupId>json</groupId>
+			<groupId>net.sf.json-lib</groupId>
 			<artifactId>json-lib</artifactId>
-			<version>2.4-jdk15</version>
+			<version>0.8</version>
 		</dependency>
 		<dependency>
-			<groupId>beanutils</groupId>
+			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 			<version>1.9.2</version>
 		</dependency>
@@ -47,7 +69,7 @@
 			<version>3.2.2</version>
 		</dependency>
 		<dependency>
-			<groupId>dbcp2</groupId>
+			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-dbcp2</artifactId>
 			<version>2.1.1</version>
 		</dependency>
@@ -57,9 +79,9 @@
 			<version>2.6</version>
 		</dependency>
 		<dependency>
-			<groupId>logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>1.2</version>
+			<groupId>ant</groupId>
+			<artifactId>ant-commons-logging</artifactId>
+			<version>1.6.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -67,7 +89,7 @@
 			<version>2.2</version>
 		</dependency>
 		<dependency>
-			<groupId>ezmorph</groupId>
+			<groupId>net.sf.ezmorph</groupId>
 			<artifactId>ezmorph</artifactId>
 			<version>1.0.6</version>
 		</dependency>
@@ -77,12 +99,6 @@
 			<version>5.1.37</version>
 		</dependency>
 	</dependencies>
-	<repositories>
-		<repository>
-			<id>myrepo</id>
-			<url>file://${basedir}/libs</url>
-		</repository>
-	</repositories>
 	<build>
 		<plugins>
 			<!-- Bind the maven-assembly-plugin to the package phase this will create 

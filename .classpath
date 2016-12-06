@@ -22,14 +22,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="libs/beanutils/commons-beanutils/1.9.2/commons-beanutils-1.9.2.jar"/>
-	<classpathentry kind="lib" path="libs/collections/commons-collections/3.2.2/commons-collections-3.2.2.jar"/>
-	<classpathentry kind="lib" path="libs/dbcp2/commons-dbcp2/2.1.1/commons-dbcp2-2.1.1.jar"/>
-	<classpathentry kind="lib" path="libs/ezmorph/ezmorph/1.0.6/ezmorph-1.0.6.jar"/>
-	<classpathentry kind="lib" path="libs/jedis/jedis/2.8.0/jedis-2.8.0.jar"/>
-	<classpathentry kind="lib" path="libs/json/json-lib/2.4-jdk15/json-lib-2.4-jdk15.jar"/>
-	<classpathentry kind="lib" path="libs/logging/commons-logging/1.2/commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="libs/mysql/mysql-connector/5.1.37-bin/mysql-connector-java-5.1.37-bin.jar"/>
-	<classpathentry kind="lib" path="libs/pool2/commons-pool2/2.4.2/commons-pool2-2.4.2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
