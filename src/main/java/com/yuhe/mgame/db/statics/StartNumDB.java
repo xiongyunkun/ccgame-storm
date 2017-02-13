@@ -28,7 +28,7 @@ public class StartNumDB {
 			sb.append("insert into ").append(platformID)
 					.append("_statics.tblStartNum(PlatformID, HostID, Date, `Index`, `CIndex`, Num) values('")
 					.append(StringUtils.join(valueList, "'),('"))
-					.append("') on duplicate key update Num = values(Num)");
+					.append("') on duplicate key update Num = values(Num) + Num");
 			DBManager.execute(sb.toString());
 		}
 	}

@@ -41,6 +41,9 @@ public class LoginStatics extends AbstractStaticsModule {
 	// 记录需要入库的IMEI统计结果，入库完毕后这些统计会被清空，格式：<platformID, <Date, <Hour, <Step,
 	// StepNum>>>>
 	private Map<String, Map<String, Map<String, Map<String, Integer>>>> PlatformIMEIStatics = new HashMap<String, Map<String, Map<String, Map<String, Integer>>>>();
+	// 记录设备imeiInfo统计结果（入tblStartNum表和tblIMEIInfo表），入库完毕后这些统计会清空，格式:<platformID,
+	// List<Map<String, Int>>>
+	private Map<String, List<Map<String, String>>> PlatformIMEIInfo = new HashMap<String, List<Map<String, String>>>();
 
 	@Override
 	public synchronized boolean execute(Map<String, List<Map<String, String>>> platformResults) {
@@ -61,16 +64,20 @@ public class LoginStatics extends AbstractStaticsModule {
 				String hostID = logInfo.get("HostID");
 				if (Integer.valueOf(hostID) == W3_HOSTID) {
 					Map<String, String> imeiInfo = mergeLoginIMEIs(platformID, logInfo, imeiStatics);
-					if(imeiInfo.size() > 0)
+					if (imeiInfo.size() > 0)
 						newIMEIList.add(imeiInfo);
 				} else {
 					mergeLoginUids(platformID, logInfo, hostResults);
 				}
 			}
-			//如果是设备流程的日志还需要更新tblIMEIInfo表中的设备号和登陆步骤ID
-			if(newIMEIList.size() > 0){
-				IMEIInfoDB.insert(platformID, newIMEIList);
-				StartNumDB.insert(platformID, newIMEIList);
+			// 如果是设备流程的日志还需要更新tblIMEIInfo表中的设备号和登陆步骤ID
+			if (newIMEIList.size() > 0) {
+				List<Map<String, String>> imeiInfoList = PlatformIMEIInfo.get(platformID);
+				if (imeiInfoList == null) {
+					imeiInfoList = new ArrayList<Map<String, String>>();
+					PlatformIMEIInfo.put(platformID, imeiInfoList);
+				}
+				imeiInfoList.addAll(newIMEIList);
 			}
 		}
 		return true;
@@ -142,7 +149,7 @@ public class LoginStatics extends AbstractStaticsModule {
 		if (date != null && hour != null) {
 			// 分类整理
 			Set<String> standardIMEIs = getStandardIMEIs(platformID, date);
-			if (Integer.parseInt(step) == IMEI_STANDARD_ID){
+			if (Integer.parseInt(step) == IMEI_STANDARD_ID) {
 				standardIMEIs.add(imei);
 			}
 			if (standardIMEIs.contains(imei)) {
@@ -160,9 +167,9 @@ public class LoginStatics extends AbstractStaticsModule {
 					}
 					int stepNum = hourResult.getOrDefault(step, 0);
 					hourResult.put(step, stepNum + 1);
-					//同时还要更新OldIMEIMap表便于下次排重
+					// 同时还要更新OldIMEIMap表便于下次排重
 					Set<String> stepSet = oldIMEIs.get(imei);
-					if(stepSet == null){
+					if (stepSet == null) {
 						stepSet = new HashSet<String>();
 						oldIMEIs.put(imei, stepSet);
 					}
@@ -170,11 +177,11 @@ public class LoginStatics extends AbstractStaticsModule {
 					imeiInfo.put("IMEI", imei);
 					imeiInfo.put("Step", step);
 					imeiInfo.put("Time", time);
-					if (Integer.parseInt(step) == IMEI_STANDARD_ID){
-						//如果是登陆第一步还需要记录DPI，Model， Brand
+					if (Integer.parseInt(step) == IMEI_STANDARD_ID) {
+						// 如果是登陆第一步还需要记录DPI，Model， Brand
 						String[] phoneInfos = StringUtils.split(phoneInfo, ";");
-						if(phoneInfos.length >= 7){
-							imeiInfo.put("Model", phoneInfos[0]); //Model
+						if (phoneInfos.length >= 7) {
+							imeiInfo.put("Model", phoneInfos[0]); // Model
 							imeiInfo.put("DPI", phoneInfos[5] + "*" + phoneInfos[6]);
 							imeiInfo.put("Brand", phoneInfos[1]);
 							imeiInfo.put("Date", date);
@@ -381,6 +388,7 @@ public class LoginStatics extends AbstractStaticsModule {
 	public synchronized boolean cronExecute() {
 		cronUidStatics();
 		cronIMEIStatics();
+
 		return true;
 	}
 
@@ -459,6 +467,14 @@ public class LoginStatics extends AbstractStaticsModule {
 		// 记录入库后重新清空
 		if (PlatformIMEIStatics.size() > 0) {
 			PlatformIMEIStatics = new HashMap<String, Map<String, Map<String, Map<String, Integer>>>>();
+		}
+		// 还要写入PlatformIMEIInfo
+		Iterator<String> it = PlatformIMEIInfo.keySet().iterator();
+		while (it.hasNext()) {
+			String platformID = it.next();
+			List<Map<String, String>> imeiInfoList = PlatformIMEIInfo.get(platformID);
+			IMEIInfoDB.insert(platformID, imeiInfoList);
+			StartNumDB.insert(platformID, imeiInfoList);
 		}
 		return true;
 	}

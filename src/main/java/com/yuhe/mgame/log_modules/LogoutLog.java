@@ -94,7 +94,8 @@ public class LogoutLog extends AbstractLogModule {
 
 	@Override
 	public String getStaticsIndex() {
-		return "MixLoginStatics";
+//		return "MixLoginStatics";
+		return null;
 	}
 
 	@Override

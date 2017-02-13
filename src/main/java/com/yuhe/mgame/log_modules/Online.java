@@ -62,7 +62,8 @@ public class Online extends AbstractLogModule {
 
 	@Override
 	public String getStaticsIndex() {
-		return "HistoryOnline";
+//		return "HistoryOnline";
+		return null;
 	}
 
 	@Override

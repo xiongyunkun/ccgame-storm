@@ -117,7 +117,8 @@ public class AddPlayerLog extends AbstractLogModule {
 
 	@Override
 	public String getStaticsIndex() {
-		return "HistoryReg";
+//		return "HistoryReg";
+		return null;
 	}
 
 	@Override

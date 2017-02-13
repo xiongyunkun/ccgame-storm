@@ -77,7 +77,8 @@ public class LoginLog extends AbstractLogModule {
 
 	@Override
 	public String getStaticsIndex() {
-		return "MixLoginStatics"; // 统计留存等信息
+//		return "MixLoginStatics"; // 统计留存等信息
+		return null;
 	}
 
 	@Override

@@ -68,7 +68,8 @@ public class GoldLog extends AbstractLogModule {
 
 	@Override
 	public String getStaticsIndex() {
-		return "Gold";
+//		return "Gold";
+		return null;
 	}
 
 	@Override
