@@ -37,6 +37,7 @@ public class LogoutLog extends AbstractLogModule {
 			put("TotalGold", "0");
 			put("Money", "0");
 			put("Fighting", "0");
+			put("HeadId", "0");
 		}
 	};
 

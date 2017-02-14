@@ -68,6 +68,7 @@ com\yuhe\mgame\log_modules\ClientLoadLog.class
 com\yuhe\mgame\db\statics\AddPlayerDB.class
 com\yuhe\mgame\db\statics\UserPayDayStaticsDB.class
 com\yuhe\mgame\log_modules\ReNameLog.class
+com\yuhe\mgame\log_modules\LoginLog$1.class
 com\yuhe\mgame\log_modules\LevelUpLog.class
 com\yuhe\mgame\log_modules\ItemLog.class
 com\yuhe\mgame\db\statics\HistoryOnlineDB.class

@@ -26,6 +26,14 @@ public class LoginLog extends AbstractLogModule {
 	private static final String[] LOG_COLS = { "Uid", "Name", "Urs", "Level", "Ip", "PhoneInfo", "SDKInfo", "HeadId" };
 	private static final String[] DB_COLS = { "HostID", "Uid", "Name", "Urs", "Level", "Ip", "PhoneInfo", "Time" };
 	private static String TBL_NAME = "tblLoginLog";
+	
+	private static Map<String, String> DefaultValues = new HashMap<String, String>() {
+		private static final long serialVersionUID = 1L;
+
+		{
+			put("HeadId", "0");
+		}
+	};
 
 	@Override
 	public Map<String, List<Map<String, String>>> execute(List<String> logList, Map<String, String> staticsHosts) {
@@ -44,7 +52,11 @@ public class LoginLog extends AbstractLogModule {
 					map.put("Time", time);
 					String sdkInfo = "";
 					for (String col : LOG_COLS) {
-						String value = RegUtils.getLogValue(message, col, "");
+						String defaultValue = "";
+						if(DefaultValues.containsKey(col)){
+							defaultValue = DefaultValues.get(col);
+						}
+						String value = RegUtils.getLogValue(message, col, defaultValue);
 						map.put(col, value);
 						if (col.equals("SDKInfo")) {
 							sdkInfo = value;
@@ -95,7 +107,11 @@ public class LoginLog extends AbstractLogModule {
 			map.put("Time", time);
 			String sdkInfo = "";
 			for (String col : LOG_COLS) {
-				String value = RegUtils.getLogValue(message, col, "");
+				String defaultValue = "";
+				if(DefaultValues.containsKey(col)){
+					defaultValue = DefaultValues.get(col);
+				}
+				String value = RegUtils.getLogValue(message, col, defaultValue);
 				map.put(col, value);
 				if (col.equals("SDKInfo")) {
 					sdkInfo = value;
