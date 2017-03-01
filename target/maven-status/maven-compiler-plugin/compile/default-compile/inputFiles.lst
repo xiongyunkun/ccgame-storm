@@ -51,6 +51,7 @@ F:\workspace_java\mgame\src\main\java\com\yuhe\mgame\statics_modules\MixLoginSta
 F:\workspace_java\mgame\src\main\java\com\yuhe\mgame\db\log\CommonDB.java
 F:\workspace_java\mgame\src\main\java\com\yuhe\mgame\db\statics\PayDayFrequencyDB.java
 F:\workspace_java\mgame\src\main\java\com\yuhe\mgame\log_modules\MoneyLog.java
+F:\workspace_java\mgame\src\main\java\com\yuhe\mgame\log_modules\PayOrder.java
 F:\workspace_java\mgame\src\main\java\com\yuhe\mgame\log_modules\TaskLog.java
 F:\workspace_java\mgame\src\main\java\com\yuhe\mgame\db\statics\PayDB.java
 F:\workspace_java\mgame\src\main\java\com\yuhe\mgame\log_modules\ClientLoadLog.java

@@ -16,6 +16,7 @@ com\yuhe\mgame\statics_modules\PayDay.class
 com\yuhe\mgame\bolt\KafkaLogBolt.class
 com\yuhe\mgame\db\UserInfoDB.class
 com\yuhe\mgame\log_modules\W3Log.class
+com\yuhe\mgame\log_modules\PayOrder.class
 com\yuhe\mgame\statics_modules\UserPayDay.class
 com\yuhe\mgame\log_modules\W3Log$1.class
 com\yuhe\mgame\statics_modules\PayStatics.class

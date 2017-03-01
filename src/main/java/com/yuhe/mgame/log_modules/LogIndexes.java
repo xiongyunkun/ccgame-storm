@@ -3,6 +3,7 @@ package com.yuhe.mgame.log_modules;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+
 public class LogIndexes {
 	private static Map<String, AbstractLogModule> indexMap = new LinkedHashMap<String, AbstractLogModule>();
 	static {
@@ -35,6 +36,7 @@ public class LogIndexes {
 		indexMap.put("topchallenge", new TopChallengeLog()); //极致领域日志
 		indexMap.put("worldslay", new WorldSlayLog()); //世界斩杀日志
 		indexMap.put("www", new W3Log()); //3w日志
+		indexMap.put("pay_order", new PayOrder()); //充值日志
 	}
 	/**
 	 * 返回统计指标的Map

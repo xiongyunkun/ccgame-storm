@@ -25,18 +25,20 @@ public class KafkaLogBolt extends BaseBasicBolt {
 		String staticsIndex = null;
 		String logStr = input.getString(0);
 		JSONObject json = JSONObject.fromObject(logStr);
-		String type = json.getString("type");
-		Map<String, AbstractLogModule> indexMap = LogIndexes.GetIndexMap();
-		if (indexMap.containsKey(type)) {
-			AbstractLogModule module = indexMap.get(type);
-			Map<String, String> hostMap = ServerDB.getStaticsServers();
+		if (json.has("type")) {
+			String type = json.getString("type");
+			Map<String, AbstractLogModule> indexMap = LogIndexes.GetIndexMap();
+			if (indexMap.containsKey(type)) {
+				AbstractLogModule module = indexMap.get(type);
+				Map<String, String> hostMap = ServerDB.getStaticsServers();
 
-			platformResults = module.execute4Kafka(json, hostMap);
-			staticsIndex = module.getStaticsIndex();
-		}
+				platformResults = module.execute4Kafka(json, hostMap);
+				staticsIndex = module.getStaticsIndex();
+			}
 
-		if (staticsIndex != null && platformResults != null && platformResults.size() > 0) {
-			collector.emit(new Values(staticsIndex, platformResults));
+			if (staticsIndex != null && platformResults != null && platformResults.size() > 0) {
+				collector.emit(new Values(staticsIndex, platformResults));
+			}
 		}
 	}
 

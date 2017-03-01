@@ -1,8 +1,5 @@
 package com.yuhe.mgame.db.statics;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -28,7 +25,7 @@ public class PayDB {
 	 * @param platformResult
 	 * @return
 	 */
-	public boolean insert5Min(String platformID, Map<String, Map<String, String>> platformResult) {
+	public static boolean insert5Min(String platformID, Map<String, Map<String, String>> platformResult) {
 		List<String> sqlValues = new ArrayList<String>();
 		Iterator<String> hostIt = platformResult.keySet().iterator();
 		while (hostIt.hasNext()) {
@@ -46,21 +43,6 @@ public class PayDB {
 				+ ") values('" + StringUtils.join(sqlValues, "'),('")
 				+ "') on duplicate key update PayCashNum = values(PayCashNum)+PayCashNum,PayUserNum = values(PayUserNum)+PayUserNum";
 		DBManager.execute(sql);
-		//监控代码，发现问题后及时删除
-		String monitorSql = "select count(*) as Num from " + platformID + "_statics.tblPayActualTime where Currency = '' and Flag = 'true'";
-		Connection conn = DBManager.getConn();
-		ResultSet resultSet = DBManager.query(conn, monitorSql);
-		try {
-			if(resultSet.next() && resultSet.getInt("Num") != 0){
-				String errSql = "insert into smcs.tblStaticsErr(ErrContent) values('" + sql +"')";
-				DBManager.execute(errSql);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			DBManager.closeConn(conn);
-		}
 		//同时要去掉currency为空的数据
 		String deleteSql = "update " + platformID + "_statics.tblPayActualTime set Flag = 'false' where Currency = ''";
 		DBManager.execute(deleteSql);
@@ -74,7 +56,7 @@ public class PayDB {
 	 * @param platformResult
 	 * @return
 	 */
-	public boolean insertUserPayStatics(String platformID, Map<String, Map<String, String>> platformResult) {
+	public static boolean insertUserPayStatics(String platformID, Map<String, Map<String, String>> platformResult) {
 		List<String> sqlValues = new ArrayList<String>();
 		Iterator<String> hostIt = platformResult.keySet().iterator();
 		while (hostIt.hasNext()) {
